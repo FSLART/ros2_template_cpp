@@ -41,3 +41,17 @@ void Publisher::timer_callback() {
     // publish the message
     publisher_->publish(message);
 }
+
+int main(int argc, char *argv[]) {
+
+    // initialize ROS2
+    rclcpp::init(argc, argv);
+
+    // create a node instance and spin
+    rclcpp::spin(std::make_shared<Publisher>());
+
+    // shutdown ROS after the node is destroyed
+    rclcpp::shutdown();
+
+    return 0;
+}
