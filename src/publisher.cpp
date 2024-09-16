@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "publisher.h"
+#include "my_package/publisher.h"
 
 Publisher::Publisher() : Node("publisher") {
 
@@ -39,7 +39,7 @@ void Publisher::timer_callback() {
     message.data = "Hello, world!";
 
     // publish the message
-    publisher_->publish(message);
+    this->publisher_->publish(message);
 }
 
 int main(int argc, char *argv[]) {
