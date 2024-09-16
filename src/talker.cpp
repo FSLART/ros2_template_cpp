@@ -22,18 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "my_package/publisher.h"
+#include "my_package/talker.h"
 
-Publisher::Publisher() : Node("publisher") {
+Talker::Talker() : Node("talker") {
 
     // create the publisher for string messages on the topic "topic"
     publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
 
     // create the timer for the callback function
-    timer_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&Publisher::timer_callback, this));
+    timer_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&Talker::timer_callback, this));
 }
 
-void Publisher::timer_callback() {
+void Talker::timer_callback() {
     // create the message to be published
     auto message = std_msgs::msg::String();
     message.data = "Hello, world!";
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);
 
     // create a node instance and spin
-    rclcpp::spin(std::make_shared<Publisher>());
+    rclcpp::spin(std::make_shared<Talker>());
 
     // shutdown ROS after the node is destroyed
     rclcpp::shutdown();

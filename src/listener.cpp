@@ -22,15 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "my_package/subscriber.h"
+#include "my_package/listener.h"
 
-Subscriber::Subscriber() : Node("subscriber") {
+Listener::Listener() : Node("listener") {
 
     // create the subscriber for string messages on the topic "topic"
-    subscriber_ = this->create_subscription<std_msgs::msg::String>("topic", 10, std::bind(&Subscriber::topic_callback, this, _1));
+    this->subscriber_ = this->create_subscription<std_msgs::msg::String>("topic", 10, std::bind(&Listener::topic_callback, this, std::placeholders::_1));
 }
 
-void Subscriber::topic_callback(const std_msgs::msg::String::SharedPtr message) {
+void Listener::topic_callback(const std_msgs::msg::String::SharedPtr message) const {
 
     // log the message
     RCLCPP_INFO(this->get_logger(), "I heard: '%s'", message->data.c_str());
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);
 
     // create a node instance and spin
-    rclcpp::spin(std::make_shared<Subscriber>());
+    rclcpp::spin(std::make_shared<Listener>());
 
     // shutdown ROS after the node is destroyed
     rclcpp::shutdown();

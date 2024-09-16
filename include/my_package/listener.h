@@ -21,30 +21,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef MY_PACKAGE_PUBLISHER_H_
-#define MY_PACKAGE_PUBLISHER_H_
+#ifndef MY_PACKAGE_LISTENER_H_
+#define MY_PACKAGE_LISTENER_H_
 
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 
-/*! \brief Simple publisher class. Publishes a string message at a fixed time interval. */
-class Publisher : public rclcpp::Node {
+/*! \brief Simple subscriber class. Subscribes a string message. */
+class Listener : public rclcpp::Node {
 
     public:
-        /*! \brief Constructor of the Publisher class. */
-        Publisher();
+        /*! \brief Constructor of the Subscriber class. */
+        Listener();
 
     private:
-        /*! \brief Timer for booting the message callback. */
-        rclcpp::TimerBase::SharedPtr timer_;
+        /*! \brief Subscriber for the string message. */
+        rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscriber_;
 
-        /*! \brief Publisher for the string message. */
-        rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
-
-        /*! \brief Callback function for the timer. Uses the publisher to publish a string. */
-        void timer_callback();
+        /*! \brief Callback function for the subscriber. Called every time a message arrives and logs the message. */
+        void topic_callback(const std_msgs::msg::String::SharedPtr message) const;
 
 };
 
-
-#endif // MY_PACKAGE_PUBLISHER_H_
+#endif // MY_PACKAGE_LISTENER_H_

@@ -27,11 +27,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable(publisher src/publisher.cpp)
-ament_target_dependencies(publisher rclcpp std_msgs)
+add_executable(talker src/talker.cpp)
+ament_target_dependencies(talker rclcpp std_msgs)
+
+add_executable(listener src/listener.cpp)
+ament_target_dependencies(listener rclcpp std_msgs)
 
 install(TARGETS
-  publisher
+  talker
+  listener
   DESTINATION lib/${PROJECT_NAME}
 )
 
