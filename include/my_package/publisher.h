@@ -25,6 +25,7 @@ SOFTWARE.
 #define MY_PACKAGE_PUBLISHER_H_
 
 #include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/string.hpp>
 
 /*! \brief Simple publisher class. Publishes a string message at a fixed time interval. */
 class Publisher : public rclcpp::Node {
